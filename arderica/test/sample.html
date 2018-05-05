@@ -29,13 +29,19 @@ window.onload = function(){
 function init(){
     var scene = document.querySelector("a-scene");
     var fre = scene.querySelector("#fre");
-
+    console.log("test");
     fre.addEventListener("mousedown",function(){
         fre.setAttribute("spine","src: data/skeleton;animation: walk");
-    })
+        console.log("test2");
+    });
     fre.addEventListener("touchend",function(){
         fre.setAttribute("spine","src: data/skeleton;animation: walk");
-    })
+        console.log("test3");
+    });
+    fre.addEventListener("click",function(){
+        fre.setAttribute("spine","src: data/skeleton;animation: walk");
+        console.log("test2");
+    });
 }
 </script>
 </body>
