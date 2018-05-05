@@ -15,11 +15,25 @@
         <!--
         <a-image src="fre.png"></a-image>
         -->
-        <a-entity spine="src: data/skeleton;animation: patapata"></a-entity>
+        <a-entity id="fre" spine="src: data/skeleton;animation: patapata"></a-entity>
     </a-marker>
     <a-entity camera>
         <a-cursor color="#fff" scale="2.5 2.5 2.5"></a-cursor>
     </a-entity>
 </a-scene>
+<script>
+window.onload = function(){
+    init();
+}
+
+function init(){
+    var scene = document.querySelector("a-scene");
+    var fre = scene.querySelector("#fre");
+
+    fre.addEventListener("click",function(){
+        fre.setAttribute("spine","src: data/skeleton;animation: walk")
+    })
+}
+</script>
 </body>
 </html>
