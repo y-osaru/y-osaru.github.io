@@ -30,8 +30,11 @@ function init(){
     var scene = document.querySelector("a-scene");
     var fre = scene.querySelector("#fre");
 
-    fre.addEventListener("click",function(){
-        fre.setAttribute("spine","src: data/skeleton;animation: walk")
+    fre.addEventListener("mousedown",function(){
+        fre.setAttribute("spine","src: data/skeleton;animation: walk");
+    })
+    fre.addEventListener("touchend",function(){
+        fre.setAttribute("spine","src: data/skeleton;animation: walk");
     })
 }
 </script>
