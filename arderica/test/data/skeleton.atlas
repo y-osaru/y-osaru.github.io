@@ -1,0 +1,167 @@
+
+skeleton.png
+size: 512,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+10_right_arm_2
+  rotate: true
+  xy: 449, 268
+  size: 16, 22
+  orig: 16, 22
+  offset: 0, 0
+  index: -1
+11_left_arm_1
+  rotate: true
+  xy: 419, 265
+  size: 19, 28
+  orig: 19, 28
+  offset: 0, 0
+  index: -1
+11_left_arm_1_happa
+  rotate: false
+  xy: 264, 156
+  size: 68, 87
+  orig: 68, 87
+  offset: 0, 0
+  index: -1
+11_left_arm_1_ueki
+  rotate: false
+  xy: 294, 257
+  size: 123, 118
+  orig: 123, 118
+  offset: 0, 0
+  index: -1
+12_left_eye
+  rotate: false
+  xy: 468, 467
+  size: 25, 20
+  orig: 25, 20
+  offset: 0, 0
+  index: -1
+13_right_eye
+  rotate: false
+  xy: 468, 489
+  size: 27, 21
+  orig: 27, 21
+  offset: 0, 0
+  index: -1
+14.left_eye
+  rotate: true
+  xy: 404, 229
+  size: 26, 11
+  orig: 26, 11
+  offset: 0, 0
+  index: -1
+15.right_eye
+  rotate: true
+  xy: 468, 439
+  size: 26, 11
+  orig: 26, 11
+  offset: 0, 0
+  index: -1
+1_left_arm_2
+  rotate: false
+  xy: 83, 29
+  size: 16, 22
+  orig: 16, 22
+  offset: 0, 0
+  index: -1
+2_right_arm_1
+  rotate: false
+  xy: 62, 23
+  size: 19, 28
+  orig: 19, 28
+  offset: 0, 0
+  index: -1
+2_right_arm_1_happa
+  rotate: false
+  xy: 334, 168
+  size: 68, 87
+  orig: 68, 87
+  offset: 0, 0
+  index: -1
+2_right_arm_1_sensu1
+  rotate: false
+  xy: 264, 90
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+2_right_arm_1_ueki
+  rotate: false
+  xy: 144, 109
+  size: 118, 134
+  orig: 118, 134
+  offset: 0, 0
+  index: -1
+3_right_leg_2
+  rotate: true
+  xy: 497, 474
+  size: 15, 13
+  orig: 15, 13
+  offset: 0, 0
+  index: -1
+4_right_leg_1
+  rotate: false
+  xy: 497, 491
+  size: 13, 19
+  orig: 13, 19
+  offset: 0, 0
+  index: -1
+5_left_leg_2
+  rotate: false
+  xy: 473, 272
+  size: 14, 12
+  orig: 14, 12
+  offset: 0, 0
+  index: -1
+6_left_leg_1
+  rotate: false
+  xy: 62, 2
+  size: 14, 19
+  orig: 14, 19
+  offset: 0, 0
+  index: -1
+7_doutai
+  rotate: true
+  xy: 2, 6
+  size: 45, 58
+  orig: 45, 58
+  offset: 0, 0
+  index: -1
+8_face
+  rotate: false
+  xy: 144, 10
+  size: 114, 97
+  orig: 114, 97
+  offset: 0, 0
+  index: -1
+9_hair
+  rotate: false
+  xy: 419, 286
+  size: 80, 89
+  orig: 80, 89
+  offset: 0, 0
+  index: -1
+puti_fure_base
+  rotate: false
+  xy: 2, 53
+  size: 140, 190
+  orig: 140, 190
+  offset: 0, 0
+  index: -1
+ueki_asi
+  rotate: false
+  xy: 294, 377
+  size: 172, 133
+  orig: 172, 133
+  offset: 0, 0
+  index: -1
+ueki_head
+  rotate: false
+  xy: 2, 245
+  size: 290, 265
+  orig: 290, 265
+  offset: 0, 0
+  index: -1
