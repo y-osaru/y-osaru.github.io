@@ -31,6 +31,9 @@ $(function(){
     let pointEvent = 320 * eventRate;
     countNormal = Math.floor((itemEvent * (goalPoint - nowPoint) - pointEvent * ( login * (days - daysPast) + nowItem))
                       /(pointNormal * itemEvent + pointEvent * itemNormal));
+    if(countNormal < 0){
+      countNormal = 0;
+    }
     let countEvent = Math.floor((itemNormal * countNormal + login * (days - daysPast) + nowItem)/itemEvent);
     
     restItem = itemNormal * countNormal + login * (days - daysPast) + nowItem - itemEvent * countEvent;
