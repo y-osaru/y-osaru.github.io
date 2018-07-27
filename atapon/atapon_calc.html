@@ -2,6 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:site" content="@SARU_KABUTO" />
   <meta property="og:url" content="https://y-osaru.github.io/atapon/atapon_calc.html" />
@@ -15,8 +16,8 @@
   <script src="atapon.js?20180709"></script>
   <title>アタポン計算機</title>
 </head>
-<body>
-  <nav class="navbar navbar-dark bg-primary justify-content-between">
+<body style="padding-top:4.0rem;">
+  <nav class="navbar navbar-dark bg-primary justify-content-between fixed-top">
     <span class="navbar-brand mb-0 h1">アタポン計算機</span>
     <div class="navbar-nav float-right">
       <a target="_blank" href="https://twitter.com/SARU_KABUTO">
@@ -29,21 +30,21 @@
       <form aria-describedby="formHelp">
         <small id="formHelp" class="form-text text-muted">※計算はスタミナ19(Master)/スコアSを前提としています。</small>
         <div class="form-row">
-          <div class="col">
+          <div class="col-6">
             <label for="days">イベント日数</label>
             <input type="text" pattern="\d*" inputmode="numeric" class="form-control" id="days" placeholder="イベントの日数">
           </div>
-          <div class="col">
-            <label for="daysPast">経過日数(ログボ取得回数)</label>
+          <div class="col-6">
+            <label for="daysPast" style="white-space: nowrap;">ログボ取得日数</label>
             <input type="text" pattern="\d*" inputmode="numeric" class="form-control" id="daysPast" placeholder="ログボを貰った日数">
           </div>
         </div>
         <div class="form-row">
-          <div class="col">
+          <div class="col-6">
               <label for="nowPoint">現在のポイント数</label>
               <input type="text" pattern="\d*" inputmode="numeric" class="form-control" id="nowPoint" placeholder="現在獲得しているポイント数">
           </div>
-          <div class="col">
+          <div class="col-6">
               <label for="nowItem">現在のアイテム数</label>
               <input type="text" pattern="\d*" inputmode="numeric" class="form-control" id="nowItem" placeholder="現在獲得しているアイテム数">
           </div>
@@ -53,28 +54,28 @@
             <input type="text" pattern="\d*" inputmode="numeric" class="form-control" id="goalPoint" placeholder="目標とするポイント数">
         </div>
         <div class="form-row">
-          <div class="col">
+          <div class="col-xs-12 col-sm-6">
             <label for="normalRate">通常楽曲倍率：</label>
-            <div class="form-check form-check-inline">
+            <div class="form-check form-check-inline" style="margin-right:4px;">
               <input class="form-check-input" type="radio" name="normalRate" id="normalRate1" value="1" checked>
               <label class="form-check-label" for="normalRate1">等倍</label>
             </div>
-            <div class="form-check form-check-inline">
+            <div class="form-check form-check-inline" style="margin-right:4px;">
               <input class="form-check-input" type="radio" name="normalRate" id="normalRate2" value="2">
               <label class="form-check-label" for="normalRate2">2倍</label>
             </div>
           </div>
-          <div class="col">
+          <div class="col-xs-12 com-sm-6">
             <label for="eventRate">イベント楽曲倍率：</label>
-            <div class="form-check form-check-inline">
+            <div class="form-check form-check-inline" style="margin-right:4px;">
               <input class="form-check-input" type="radio" name="eventRate" id="eventRate1" value="1" checked>
               <label class="form-check-label" for="eventRate1">等倍</label>
             </div>
-            <div class="form-check form-check-inline">
+            <div class="form-check form-check-inline" style="margin-right:4px;">
               <input class="form-check-input" type="radio" name="eventRate" id="eventRate2" value="2">
               <label class="form-check-label" for="eventRate2">2倍</label>
             </div>
-            <div class="form-check form-check-inline">
+            <div class="form-check form-check-inline" style="margin-right:4px;">
               <input class="form-check-input" type="radio" name="eventRate" id="eventRate4" value="4">
               <label class="form-check-label" for="eventRate4">4倍</label>
             </div>
