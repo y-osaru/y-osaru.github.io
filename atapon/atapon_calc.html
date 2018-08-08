@@ -10,6 +10,7 @@
   <meta property="og:description" content="俺はあと何回シャンシャンすればいい……を教えてくれるサイト" />
   <meta property="og:image" content="https://y-osaru.github.io/atapon/ata.PNG" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="manifest" href="manifest.json">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
@@ -17,6 +18,15 @@
   <title>アタポン計算機</title>
 </head>
 <body style="padding-top:4.0rem;">
+<script>
+  if('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js').then(function(registration) {
+        console.log('ServiceWorker registration successful with scope: ', registration.scope);
+    }).catch(function(err) {
+        console.log('ServiceWorker registration failed: ', err);
+    });
+  }
+</script>
   <nav class="navbar navbar-dark bg-primary justify-content-between fixed-top">
     <span class="navbar-brand mb-0 h1">アタポン計算機</span>
     <div class="navbar-nav float-right">
