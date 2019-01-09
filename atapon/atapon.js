@@ -1,4 +1,28 @@
 $(function(){
+  let expireUpdateFlg = false;
+  const lastParams = getLastParams("last_params");
+  const now = new Date();
+  //ローカルストレージにデータがあり、現在時刻が期限時刻より前なら自動設定する。ミリ秒比較になるが、アタポンイベは連続しないのでOK  
+  if(lastParams != null && now < new Date(lastParams.expireDate)){
+    $("#days").val(lastParams.days);
+    $("#daysPast").val(lastParams.daysPast);
+    $("#goalPoint").val(lastParams.goalPoint);
+    $("input[name='normalRate']").val([String(lastParams.normalRate)]);
+    $("input[name='eventRate']").val([String(lastParams.eventRate)]);
+  }else{
+    expireUpdateFlg = true;
+  }
+  
+  //ローカルストレージに保存したパラメータデータを取得
+  function getLastParams(key){
+    const lastParamsJson = localStorage.getItem(key);
+    if(lastParamsJson == null){
+      return null;
+    }else{
+      return JSON.parse(lastParamsJson);
+    }
+  }
+  
   //入力チェック
   function inputCheck(){
     if(!$.isNumeric($("#days").val()) ||
@@ -113,6 +137,32 @@ $(function(){
       $("#totalPoint").text(totalPoint);
       $("#totalItem").text(totalItem);
       $("#restItem").text(restItem);
+      
+      //ローカルストレージに保存
+      const expireTerm = 11;
+      let newParams;
+      if(expireUpdateFlg){
+        let expireDate = new Date();
+        expireDate.setDate(expireDate.getDate() + expireTerm);
+        newParams = {
+          'expireDate' : expireDate,
+          'days' : days,
+          'daysPast' : daysPast,
+          'goalPoint' : goalPoint,
+          'normalRate' : normalRate,
+          'eventRate' : eventRate
+        };
+      }else{
+        newParams = {
+          'expireDate' : new Date(lastParams.expireDate),
+          'days' : days,
+          'daysPast' : daysPast,
+          'goalPoint' : goalPoint,
+          'normalRate' : normalRate,
+          'eventRate' : eventRate
+        };
+      }
+      localStorage.setItem("last_params", JSON.stringify(newParams));
     }
   })
 })
