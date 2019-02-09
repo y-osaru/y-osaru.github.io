@@ -177,8 +177,6 @@ phina.define('TitleScene',{
 let score = 0;
 let rank = "実装中...";
 const SCORE_PREFIX = "Score:";
-const RANK_PREFIX = "Rank:";
-const RANK_LOADING = "ランキング取得中...";
 let scoreLab;
 phina.define('MainScene', {
   superClass: 'DisplayScene',
@@ -228,23 +226,33 @@ phina.define('MainScene', {
   }
 });
 
+const RANK_PREFIX = "Rank:";
+const RANK_LOADING = "ランキング取得中...";
+const RANK_API_URL = "https://script.google.com/macros/s/AKfycby4M9bLLuhzD32gZz2bplpykUVe6V3V5N0mvxT5NsN7xqGvMjc/exec?score=";
 phina.define('ResultScene',{
   superClass: 'DisplayScene',
   
   init: function() {
     this.superInit();
     
-    Label({
+    let scoreLabel = Label({
       text: SCORE_PREFIX + score,
       fontSize: 20,
       align:'left'
     }).addChildTo(this).setPosition(100,100);
     
-    Label({
-      text: RANK_PREFIX + "実装中...",
+    let rankLabel = Label({
+      text: RANK_LOADING,
       fontSize: 20,
       align:'left'
     }).addChildTo(this).setPosition(100,130);
+
+    fetch(RANK_API_URL + score).then(function(response){
+      return response.json();
+    }).then(function(json){
+      rankLabel.text = RANK_PREFIX + json.rank;
+    });
+
 
     let fre = Sprite("fre").addChildTo(this);
     fre.width = 63;
@@ -260,7 +268,7 @@ phina.define('ResultScene',{
     share.setInteractive(true);
     share.onpointstart = function(){
       let url = phina.social.Twitter.createURL({
-        text: 'Flappy Fredericaで遊んだよ！\r\nScore:'+score+'\r\nRank:'+rank+'\r\n',
+        text: 'Flappy Fredericaで遊んだよ！\r\n'+scoreLabel.text+'\r\n'+rankLabel.text+'\r\n',
         hashtags: 'imag_cg,宮本フレデリカ,ふらフレ',
         url: 'https://y-osaru.github.io/flappy-frederica/flappy.html'
       });
