@@ -10,7 +10,8 @@ let ASSETS = {
     ueki1:"assets/ob1.png",
     ueki2:"assets/ob2.png",
     share:"assets/Twitter.png",
-    restart:"assets/restart.png"
+    restart:"assets/restart.png",
+    dokaeki:"assets/dokaeki.png"
   }
 };
 
@@ -198,7 +199,7 @@ phina.define('MainScene', {
       fontSize: 20,
       fill: 'red',
       align:'left'
-    }).addChildTo(this).setPosition(0,10);
+    }).addChildTo(this).setPosition(2,11);
     
     score = 0
   },
@@ -247,9 +248,11 @@ phina.define('ResultScene',{
       align:'left'
     }).addChildTo(this).setPosition(100,130);
 
+    let rankFlag = false;
     fetch(RANK_API_URL + score).then(function(response){
       return response.json();
     }).then(function(json){
+      rankFlag = true;
       rankLabel.text = RANK_PREFIX + json.rank;
     });
 
@@ -258,21 +261,36 @@ phina.define('ResultScene',{
     fre.width = 63;
     fre.height = 106;
     fre.setOrigin(0,0);
-    fre.setPosition(120,150);
+    fre.setPosition(120,179);
+    fre.update = function(){
+      if(fre.y != 150){
+        fre.y += -0.5;
+      }
+    }
+
+    let dokaeki = Sprite("dokaeki").addChildTo(this);
+    dokaeki.width = 80;
+    dokaeki.height = 60;
+    dokaeki.setOrigin(0,0);
+    dokaeki.setPosition(110,225);
 
     let share = Sprite("share").addChildTo(this);
     share.width = 64;
     share.height = 64;
+    share.alpha = 0.5;
     share.setOrigin(0,0);
     share.setPosition(50,300);
     share.setInteractive(true);
     share.onpointstart = function(){
-      let url = phina.social.Twitter.createURL({
-        text: 'Flappy Fredericaで遊んだよ！\r\n'+scoreLabel.text+'\r\n'+rankLabel.text+'\r\n',
-        hashtags: 'imag_cg,宮本フレデリカ,ふらフレ',
-        url: 'https://y-osaru.github.io/flappy-frederica/flappy.html'
-      });
-      window.location.href = url;
+      if(rankFlag){
+        share.alpha = 1.0;
+        let url = phina.social.Twitter.createURL({
+          text: 'Flappy Fredericaで遊んだよ！\r\n'+scoreLabel.text+'\r\n'+rankLabel.text+'\r\n',
+          hashtags: 'imag_cg,宮本フレデリカ,ふらフレ',
+          url: 'https://y-osaru.github.io/flappy-frederica/flappy.html'
+        });
+        window.location.href = url;
+      }
     };
 
     let self = this;
