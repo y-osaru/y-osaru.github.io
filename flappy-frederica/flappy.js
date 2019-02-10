@@ -227,6 +227,7 @@ phina.define('MainScene', {
   }
 });
 
+let rankFlag = false;
 const RANK_PREFIX = "Rank:";
 const RANK_LOADING = "ランキング取得中...";
 const RANK_API_URL = "https://script.google.com/macros/s/AKfycby4M9bLLuhzD32gZz2bplpykUVe6V3V5N0mvxT5NsN7xqGvMjc/exec?score=";
@@ -248,7 +249,7 @@ phina.define('ResultScene',{
       align:'left'
     }).addChildTo(this).setPosition(100,130);
 
-    let rankFlag = false;
+    rankFlag = false;
     fetch(RANK_API_URL + score).then(function(response){
       return response.json();
     }).then(function(json){
@@ -283,7 +284,6 @@ phina.define('ResultScene',{
     share.setInteractive(true);
     share.onpointstart = function(){
       if(rankFlag){
-        share.alpha = 1.0;
         let url = phina.social.Twitter.createURL({
           text: 'Flappy Fredericaで遊んだよ！\r\n'+scoreLabel.text+'\r\n'+rankLabel.text+'\r\n',
           hashtags: 'imag_cg,宮本フレデリカ,ふらフレ',
@@ -292,7 +292,12 @@ phina.define('ResultScene',{
         window.location.href = url;
       }
     };
-
+    share.update = function(){
+      if(rankFlag){
+        share.alpha = 1.0;
+      } 
+    }
+    
     let self = this;
     let restart = Sprite("restart").addChildTo(this);
     restart.width = 64;
@@ -306,9 +311,6 @@ phina.define('ResultScene',{
 
     this.backgroundColor = "#ff69b4";
   },
-  onclick: function(){
-    //this.exit();
-  }
 });
 
 const myScenes =  [
