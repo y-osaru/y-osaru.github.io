@@ -72,8 +72,8 @@ let ob1;
 let ob2;
 let ob3;
 let ob4;
-const RAND_MIN = 50;
-const RAND_MAX = 135
+const RAND_MIN = 25;
+const RAND_MAX = 290
 phina.define('Obstacle',{
   superClass:'DisplayElement',
   

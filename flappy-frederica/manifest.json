@@ -1,0 +1,23 @@
+{
+  "name": "Flappy Frederica",
+  "short_name": "ふらフレ",
+  "icons": [{
+      "src": "ico/ico-144.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    }, {
+      "src": "ico/ico-152.png",
+      "sizes": "152x152",
+      "type": "image/png"
+    }, {
+      "src": "ico/ico-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }, {
+      "src": "ico/ico-256.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    }],
+  "start_url": "flappy.html",
+  "display": "standalone"
+}
