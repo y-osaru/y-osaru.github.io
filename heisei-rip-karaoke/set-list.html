@@ -1,0 +1,56 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<title>平成弔いカラオケセトリ-検索</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.8/vue.min.js"></script>
+<script src="https://rawgit.com/matfish2/vue-tables-2/master/dist/vue-tables-2.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
+<link  rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+</head>
+<body>
+<h3 class="vue-title">平成弔いカラオケ-セトリ検索</h3>
+※読み仮名検索は面倒くさいので実装してません( ˘ω˘)
+<div style="width:90%;margin: 10px auto;">
+<div id="app">
+    <v-server-table url="https://script.google.com/macros/s/AKfycbw7g60kOKqYtjV7e1hi9IYtGnl_FSsnGAH6LuxCbdQk7Utzvrk5/exec" :columns="columns" :options="options">
+    </v-server-table>
+</div>
+</div>
+<script>
+Vue.use(VueTables.ServerTable);
+
+new Vue({
+	el:"#app",
+	data :{
+		columns: [
+			"title",
+			"singer"
+		],
+		//data: getData(),
+		options:{
+			headings:{
+				"title":"曲名",
+				"singer":"歌手名"
+			},
+			sortable: [
+			],
+			texts: {
+				filterPlaceholder: '検索する'
+			}
+		}
+	}
+})
+
+function getData(){
+    return fetch("https://script.google.com/macros/s/AKfycbw7g60kOKqYtjV7e1hi9IYtGnl_FSsnGAH6LuxCbdQk7Utzvrk5/exec")
+    .then(function(response){ 
+        return response.json(); 
+    }).then(function(json){
+        return json;
+    });
+    
+    //return JSON.parse('[{"title":"バリバリ最強NO.1","singer":"FEEL SO BAD"},{"title":"Be Somewhere","singer":"Buzy"}]')
+}
+</script>
+</body>
+</html>
