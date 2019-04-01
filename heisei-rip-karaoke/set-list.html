@@ -12,13 +12,12 @@
 ※読み仮名検索は面倒くさいので実装してません( ˘ω˘)
 <div style="width:90%;margin: 10px auto;">
 <div id="app">
- <v-client-table :columns="columns" :data="data" :options="options">
- </v-client-table>
+  <v-client-table :columns="columns" :data="tableData" :options="options">
+  </v-client-table>
 </div>
 </div>
 <script>
 Vue.use(VueTables.ClientTable);
-
 new Vue({
 	el:"#app",
 	data :{
@@ -26,7 +25,9 @@ new Vue({
 			"title",
 			"singer"
 		],
-		data: getData(),
+		tableData: [
+      {title:"",singer:""}
+    ],
 		options:{
 			headings:{
 				"title":"曲名",
@@ -38,12 +39,12 @@ new Vue({
 				filterPlaceholder: '検索する'
 			}
 		}
-	}
+	},
+  mounted : function(){
+    axios.get("https://script.google.com/macros/s/AKfycbw7g60kOKqYtjV7e1hi9IYtGnl_FSsnGAH6LuxCbdQk7Utzvrk5/exec")
+    .then(response => this.tableData = response.data)
+  }
 })
-
-function getData(){
-    return JSON.parse('[{"title":"バリバリ最強NO.1","singer":"FEEL SO BAD"},{"title":"Be Somewhere","singer":"Buzy"},{"title":"未来系アイドル","singer":"氷上恭子&宮村優子"},{"title":"STAND UP TO THE VICTORY","singer":"川添智久"},{"title":"Real Face","singer":"KAT-TUN"},{"title":"熱血!!勇者ラムネス","singer":"草尾毅"},{"title":"OK!","singer":"松本梨香"},{"title":"全力少年","singer":"スキマスイッチ"},{"title":"HEART&SOUL","singer":"雁行真依"},{"title":"エロティカ・セブン","singer":"サザンオールスターズ"},{"title":"歩いて帰ろう","singer":"斉藤和義"},{"title":"サバイバル","singer":"GLAY"},{"title":"BOY MEETS GIRL","singer":"TRF"},{"title":"らせん","singer":"不知火明乃(喜多村英梨)"},{"title":"Reckless fire","singer":"井出泰彰"},{"title":"SEVENTH MOON","singer":"FIRE BOMBER"},{"title":"おジャ魔女カーニバル!!","singer":"MAHO堂"},{"title":"青いベンチ","singer":"サスケ"},{"title":"Winter,again","singer":"GLAY"},{"title":"LOVE トロピカーナ","singer":"Sister MAYO"},{"title":"Butter-Fly","singer":"和田光司"},{"title":"気分はパプワ晴れ","singer":"つのごうじ＆ピタゴラス"},{"title":"Little Wing","singer":"JAM Project"},{"title":"神魂合体ゴーダンナー!!","singer":"串田アキラ"},{"title":"DAN DAN 心魅かれてく","singer":"FIELD OF VIEW"},{"title":"Chase the world","singer":"May\'n"},{"title":"君の元へ","singer":"第二文芸部"},{"title":"キラ☆キラ","singer":"第二文芸部"},{"title":"奇跡の海","singer":"坂本真綾"},{"title":"突撃ラブハート","singer":"FIRE BOMBER"},{"title":"I LOVE U","singer":"THE★SCANTY"},{"title":"ナージャ!!","singer":"本田美奈子"},{"title":"ムーンライト伝説","singer":"DALI"},{"title":"プリンセスはあきらめない","singer":"FLIP-FLIP"},{"title":"君の知らない物語","singer":"supercell"},{"title":"未来への咆哮","singer":"JAM Project"},{"title":"my sweet heart","singer":"小松里賀"},{"title":"ハム太郎とっとこうた","singer":"ハムちゃんず"},{"title":"Don\'t say \\"lazy\\"","singer":"桜高軽音部"},{"title":"聖少女領域","singer":"ALI PROJECT"},{"title":"こころのたまご","singer":"Buono!"},{"title":"Catch You Catch Me","singer":"グミ"},{"title":"コッペリアの柩","singer":"ALI PROJECT"},{"title":"オトメロディー","singer":"高橋美佳子"},{"title":"プリティ・ケーキ・マジック","singer":"Kaede+Cheek Fairy "},{"title":"ン・パカ マーチ","singer":"徳光由香"},{"title":"約束の場所へ","singer":"米倉千尋"},{"title":"Fighting Spirits -SONG FOR BEYBLADE-","singer":"system-B"},{"title":"カサブタ","singer":"千綿ヒデノリ"},{"title":"LOVELESS WORLD","singer":"μ\'s"},{"title":"スクランブル","singer":"堀江由衣 with UNSCANDAL"},{"title":"最強○x伝説","singer":"MOSAIC.WAV"},{"title":"1000%SPARKING!","singer":"ネギ・スプリングフィールド(佐藤利奈)、神楽坂明日菜(神田朱未)、近衛木乃香(野中藍)、桜咲刹那(小林ゆう)"},{"title":"サクラサク","singer":"林原めぐみ"},{"title":"Get Over","singer":"dream"},{"title":"W-Infinity","singer":"三重野瞳 with 影山ヒロノブ"},{"title":"あいつこそがテニスの王子様","singer":"ミュージカル〈テニスの王子様〉"},{"title":"傷だらけのツバサ","singer":"IKEBUKURO"},{"title":"果てしなく遠い空に","singer":"THE STAND UP"},{"title":"英雄","singer":"doa"},{"title":"UNDO","singer":"COOL JOKE"},{"title":"ボクらの冒険","singer":"Kids Alive"},{"title":"STORM","singer":"JAM Project"},{"title":"Silly-Go-Round","singer":"FictionJunction YUUKA"},{"title":"YOU GET TO BURNING","singer":"松澤由美"},{"title":"BRAVE HEART","singer":"鋼鉄兄弟"},{"title":"サクラサクミライコイユメ","singer":"yozuca*"},{"title":"INVOKE-インヴォーク-","singer":"T.M.Revolution"},{"title":"Love Power","singer":"Aice5"},{"title":"Destin Histoire","singer":"yoshiki*lisa"},{"title":"Little Busters!","singer":"RIta"},{"title":"Hey!カロリーQueen","singer":"竹達彩奈"},{"title":"ダンデライオン","singer":"BUMP OF CHICKEN"},{"title":"君色パレット","singer":"野川さくら"},{"title":"stand by me","singer":"ステレオポニー"},{"title":"O2(オー・ツー)","singer":"ORANGE RANGE"},{"title":"鳥の歌","singer":"千里愛風"},{"title":"Shangri-La","singer":"angela"},{"title":"Climax Jump","singer":"AAA DEN-O form"},{"title":"ふれふれっぽんぽん!","singer":"月村真由(門脇舞以)/北条麗華(沢城みゆき)"},{"title":"禁断のパンセ","singer":"石塚早織"},{"title":"allegretto～そらときみ～","singer":"KOTOKO"},{"title":"はぴねす!","singer":"村田あゆみ"},{"title":"ひぐらしのなく頃に","singer":"島みやえい子"},{"title":"Shuffle","singer":"奥井雅美"},{"title":"輪舞-revolution","singer":"奥井雅美"},{"title":"RE:BRIDGE〜Return to oneself～","singer":"彩音/ALI PROJECT/石川智晶/いとうかなこ/ELISA/近江知永/奥井雅美/GRANRODEO/栗林みな実/サイキックラバー/榊原ゆい/savage genius/JAM Project/Suara/茅原実里/平野綾/manzo/水樹奈々/May\'n/桃井はるこ/米倉千尋"},{"title":"グリーン・グリーン","singer":"NANA"},{"title":"騎士行進曲","singer":"angela"},{"title":"キングゲイナー・オーバー!","singer":"福山芳樹"},{"title":"センチメンタル","singer":"CooRie"},{"title":"獅子の女王","singer":"鈴木佐江子"},{"title":"NO WAY OUT!","singer":"サイキックラバー"},{"title":"EXCITE","singer":"三浦大知"},{"title":"y\' know","singer":"プリス アサギリ"},{"title":"Love Destiny","singer":"堀江由衣"},{"title":"光るなら","singer":"Goose house"},{"title":"W-B-X～W boiled extreme～","singer":"上木彩矢 w TAKUYA"},{"title":"Shiny tale","singer":"Mix Speaker\'s,Inc."},{"title":"ギャラクシー☆ばばんがBang!","singer":"エンジェル隊"},{"title":"SHINY DAYS","singer":"亜咲花"},{"title":"ハダシの未来","singer":"嵐"},{"title":"美しければそれでいい","singer":"石川智晶"},{"title":"Red-reduction division-","singer":"fripSide"},{"title":"太陽曰く燃えよカオス","singer":"後ろから這いより隊G"},{"title":"流れ星☆","singer":"CooRie"},{"title":"あっちでこっちで","singer":"あっち⇔こっち"},{"title":"Feel on the wind.","singer":"笠原弘子"},{"title":"エアーマンが倒せない","singer":"Team.ねこかん[猫] "},{"title":"JOYRIDE","singer":"HOME MADE 家族"},{"title":"ハッピー☆マテリアル","singer":"麻帆良学園中等部2-A(相坂さよ/明石裕奈/朝倉和美/綾瀬夕映/和泉亜子/大河内アキラ)"},{"title":"ダ・カーポ～第2ボタンの誓い～","singer":"yozuca*"}]')
-}
 </script>
 </body>
 </html>
