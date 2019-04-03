@@ -1,6 +1,6 @@
 // キャッシュ名とキャッシュファイルの指定
 // 更新があればこの名前を変更する
-var CACHE_NAME = 'flafre-cache::v1';
+var CACHE_NAME = 'flafre-cache::v2';
 var urlsToCache = [
     'flappy.js'
 ];

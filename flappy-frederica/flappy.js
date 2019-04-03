@@ -11,7 +11,9 @@ let ASSETS = {
     ueki2:"assets/ob2.png",
     share:"assets/Twitter.png",
     restart:"assets/restart.png",
-    dokaeki:"assets/dokaeki.png"
+    dokaeki:"assets/dokaeki.png",
+    pause:"assets/pause.png",
+    pause_on:"assets/pause_on.png"
   }
 };
 
@@ -73,7 +75,7 @@ let ob2;
 let ob3;
 let ob4;
 const RAND_MIN = 25;
-const RAND_MAX = 290
+const RAND_MAX = 290;
 phina.define('Obstacle',{
   superClass:'DisplayElement',
   
@@ -179,6 +181,7 @@ let score = 0;
 let rank = "実装中...";
 const SCORE_PREFIX = "Score:";
 let scoreLab;
+let pauseFlag = false;
 phina.define('MainScene', {
   superClass: 'DisplayScene',
   
@@ -189,7 +192,7 @@ phina.define('MainScene', {
     Obstacle().addChildTo(this);
     Player().addChildTo(this);
     ScoreCol().addChildTo(this);
-    
+
     this.onpointstart = function(){
       player.physical.velocity.y = -10;
     };
@@ -201,7 +204,18 @@ phina.define('MainScene', {
       align:'left'
     }).addChildTo(this).setPosition(2,11);
     
-    score = 0
+    score = 0;
+
+    let self = this;
+    let pauseButton = Sprite("pause").addChildTo(this);
+    pauseButton.width = 25;
+    pauseButton.height = 25;
+    pauseButton.setOrigin(0,0);
+    pauseButton.setPosition(270,7);
+    pauseButton.setInteractive(true);
+    pauseButton.onpointstart = function(){
+      self.app.pushScene(PauseScene());
+    }
   },
   update:function(){
     //当たり判定
@@ -227,6 +241,7 @@ phina.define('MainScene', {
   }
 });
 
+//Resultシーン
 let rankFlag = false;
 const RANK_PREFIX = "Rank:";
 const RANK_LOADING = "ランキング取得中...";
@@ -313,6 +328,33 @@ phina.define('ResultScene',{
   },
 });
 
+//ポーズシーン
+const BUTTON_PARAM = {
+  text:"ポーズ解除",
+  fontSize:16,
+  width:100,
+  hight:10
+};
+phina.define("PauseScene",{
+  superClass:"DisplayScene",
+  init:function(){
+    this.superInit();
+    this.backgroundColor = "rgba(0,0,0,0.7)";
+    var self = this;
+    let pauseButton = Sprite("pause_on").addChildTo(this);
+    pauseButton.width = 100;
+    pauseButton.height = 100;
+    pauseButton.setOrigin(0,0);
+    pauseButton.setPosition(105,182);
+    pauseButton.setInteractive(true);
+    pauseButton.onpointstart = function(){
+      //美しくないがタップの速度を消してあげる
+      player.physical.velocity.y = 0;
+      self.exit();
+    }
+  }
+});
+
 const myScenes =  [
   {
     label: 'title',
@@ -331,6 +373,7 @@ const myScenes =  [
   },
 ];
 
+//実行
 phina.main(function() {
   let app = GameApp({
     startLabel: 'title',
