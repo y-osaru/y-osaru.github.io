@@ -6,14 +6,15 @@ phina.globalize();
 let ASSETS = {
   image:{
     bg:"assets/bg2.png",
-    fre:"assets/fre.png",
+    fre:"assets/fre_ueki2.png",//"assets/fre.png"
     ueki1:"assets/ob1.png",
     ueki2:"assets/ob2.png",
     share:"assets/Twitter.png",
     restart:"assets/restart.png",
     dokaeki:"assets/dokaeki.png",
     pause:"assets/pause.png",
-    pause_on:"assets/pause_on.png"
+    pause_on:"assets/pause_on.png",
+    fre2:"assets/fre_2.png"//TODO:総選挙終わったらいらない
   }
 };
 
@@ -252,6 +253,14 @@ phina.define('ResultScene',{
   init: function() {
     this.superInit();
 
+    //TODO:消す　ここから
+    let birthdayLabel = Label({
+      text: "総選挙頑張れ！！\r\n  フレデリカ！！",
+      fontSize: 20,
+      align:'left'
+    }).addChildTo(this).setPosition(72,50);
+    //ここまで
+
     let scoreLabel = Label({
       text: SCORE_PREFIX + score,
       fontSize: 20,
@@ -273,6 +282,15 @@ phina.define('ResultScene',{
       rankLabel.text = RANK_PREFIX + json.rank;
     });
     
+
+    //TODO:消す ここから
+    let fre2 = Sprite("fre2").addChildTo(this);
+    fre2.width = 76;
+    fre2.height = 104;
+    fre2.setOrigin(0,0);
+    fre2.setPosition(175,155);
+    //ここまで
+
     let fre = Sprite("fre").addChildTo(this);
     fre.width = 63;
     fre.height = 106;
@@ -300,8 +318,9 @@ phina.define('ResultScene',{
     share.onpointstart = function(){
       if(rankFlag){
         let url = phina.social.Twitter.createURL({
-          text: 'Flappy Fredericaで遊んだよ！\r\n'+scoreLabel.text+'\r\n'+rankLabel.text+'\r\n',
-          hashtags: 'imag_cg,宮本フレデリカ,ふらフレ',
+          text: 'フレデリカに投票券を届けたよ！\r\n'+scoreLabel.text+'\r\n'+rankLabel.text+'\r\n',
+          //text: 'Flappy Fredericaで遊んだよ！\r\n'+scoreLabel.text+'\r\n'+rankLabel.text+'\r\n',
+          hashtags: '第8回シンデレラガール総選挙,宮本フレデリカ,ふらフレ',
           url: 'https://y-osaru.github.io/flappy-frederica/flappy.html'
         });
         window.location.href = url;
