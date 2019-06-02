@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="js">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta description="デレステのフォトスタジオの○○ちゃんっぽくをポーズを検索できるサービス">
+    <title>デレステフォトスタジオ-ポーズ検索</title>
+    <link href="lightbox/lightbox.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.8/vue.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <style>
+        .type-btn{
+            margin-right: 5px;
+        }
+        @media (max-width: 414px) { 
+            .list img{
+                height: 200px;
+                margin-bottom: 10px;
+            }
+            .type-btn span{
+                display:none;
+            }
+            .sort span{
+                display:none;
+            }
+            .sort svg{
+                margin-right: 0px;
+            }
+        }
+        @media (min-width: 414px) { 
+            .list img{
+                height: 300px;
+                margin-bottom: 10px;
+            }
+        }
+        .list img{
+            height: 300px;
+            margin-bottom: 10px;
+        }
+
+        .sort{
+            padding-top: 10px;
+            padding-bottom: 10px;
+            margin-right: 5px;
+        }
+        .sort svg{
+            margin-right: 5px;
+        }
+
+        #footer{
+            background-color: #aaa;
+            height: 50px;
+            text-align: center;
+            line-height: 50px;
+            color : #fff;
+            margin-top:30px;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+<div class="jumbotron">
+    <div class="container">
+        <h1 >デレステ </br>フォトスタジオポーズ検索</h1>
+        <p>デレステのフォトスタジオの「○○ちゃんっぽく」を簡単に検索できるサイト</p>
+        <small class="text-muted">※本サイト及びアプリケーションは非公式のものであり、株式会社ディー・エヌ・エー/株式会社Cygames/株式会社バンダイナムコホールディングス/その他公式関連各社とは一切無関係に運営されています。<br/>
+        お問い合わせ等ございましたら、サイト下部に記載されておりますtwitterよりお願い致します。</small>
+    </div>
+</div>
+<div class="container">
+<div id="pose-list">
+    <div class="col-md-12 col-12">
+        <div class="form-group">
+            <input type="text" class="form-control search" placeholder="検索"/>
+        </div>
+        <div class="form-group form-inline">
+            <button class="type-btn btn page-link text-dark d-inline-block" value="All">
+                <img src="https://storage.googleapis.com/mobampmaster_stamp_contents/all_logo.png" width="25" height="25">
+                <span>全て</span>
+            </button>
+            <button class="type-btn btn page-link text-dark d-inline-block" value="Cu">
+                <img src="https://storage.googleapis.com/mobampmaster_stamp_contents/CfhyOYdUYAERQxa.png" width="25" height="25">
+                <span>キュート</span>
+            </button>
+            <button class="type-btn btn page-link text-dark d-inline-block" value="Co">
+                <img src="https://storage.googleapis.com/mobampmaster_stamp_contents/CfhyOYcUEAEeih7.png" width="25" height="25">
+                <span>クール</span>
+            </button>
+            <button class="type-btn btn page-link text-dark d-inline-block" value="Pa">
+                <img src="https://storage.googleapis.com/mobampmaster_stamp_contents/CfhyOZYUEAIPzqo.png" width="25" height="25">
+                <span>パッション</span>
+            </button>
+            <button class="sort btn page-link text-dark d-inline-block" data-sort="name_ja">
+                <i class="fas fa-arrows-alt-v"></i>
+                <span>名前で並び替え</span>
+            </button>
+            <button class="sort btn page-link text-dark d-inline-block" data-sort="id">
+                <i class="fas fa-undo"></i>
+                <span>並び替えリセット</span>
+            </button>
+        </div>
+    </div>
+    <div class="col-md-12 col-12">
+        <ul id="pose-area" class="list-inline list">
+            <li class="list-inline-item" v-for="pose in items">
+                <a v-bind:href="pose.url" data-lightbox="pose-view" v-bind:data-title="pose.name">
+                    <img v-bind:src="pose.url">
+                    <p class="id" style="display:none;">{{ pose.id }}</p>
+                    <p class="name" style="display:none;">{{ pose.name }}</p>
+                    <p class="name_ja" style="display:none;">{{ pose.name_ja }}</p>
+                    <p class="type" style="display:none;">{{ pose.type }}</p>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+</div>
+<footer id="footer">
+    <div class="container">
+        <p class="text-muted"><a href="https://twitter.com/SARU_KABUTO" target="_top">製作者:SARU</a></p>
+    </div>
+</footer>
+<script>
+new Vue({
+    el:"#pose-area",
+    data:{
+        items:[]
+    },
+    created(){
+        let self = this;
+        axios.get("https://script.google.com/macros/s/AKfycbyUYxGXh4Pu_6RiIAY1gjCBFB3NOTGJzR64NeSVqY6FQbINXoxJ/exec")
+        .then(res => {self.items = res.data})
+        .then(() => {
+            const options = {
+                valueNames:["id","name","name_ja","type"]
+            }
+            let poseList = new List("pose-list",options);
+
+            $(".type-btn").click(function(){
+                let typeValue = this.value;
+                poseList.filter(function(item){
+                    if(item.values().type === typeValue || typeValue === 'All'){
+                        return true;
+                    }else{
+                        return false;
+                    }
+                })
+            });
+        });
+    }
+})
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" ></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" ></script>
+<script src="lightbox/lightbox.min.js"></script>
+</body>
+</html>
