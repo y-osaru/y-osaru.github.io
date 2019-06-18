@@ -1,0 +1,31 @@
+{
+    "name": "デレステ-ポーズ検索",
+    "short_name": "ちゃんぽい検索",
+    "icons": [{
+        "src": "ico/ico-144.png",
+        "sizes": "144x144",
+        "type": "image/png"
+      }, {
+        "src": "ico/ico-152.png",
+        "sizes": "152x152",
+        "type": "image/png"
+      },  {
+        "src": "ico/ico-180.png",
+        "sizes": "180x180",
+        "type": "image/png"
+      },{
+        "src": "ico/ico-192.png",
+        "sizes": "192x192",
+        "type": "image/png"
+      }, {
+        "src": "ico/ico-256.png",
+        "sizes": "256x256",
+        "type": "image/png"
+      }, {
+        "src": "ico/ico-512.png",
+        "sizes": "512x512",
+        "type": "image/png"
+      }],
+    "start_url": "search.html",
+    "display": "standalone"
+  }

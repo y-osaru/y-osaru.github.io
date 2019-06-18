@@ -22,55 +22,26 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <style>
-        .type-btn{
-            margin-right: 5px;
-        }
-        @media (max-width: 414px) { 
-            .list img{
-                height: 185px;
-                margin-bottom: 10px;
-            }
-            .type-btn span{
-                display:none;
-            }
-            .sort span{
-                display:none;
-            }
-            .sort svg{
-                margin-right: 0px;
-            }
-        }
-        @media (min-width: 414px) { 
-            .list img{
-                height: 300px;
-                margin-bottom: 10px;
-            }
-            .sort svg{
-                margin-right: 5px;
-            }
-        }
-
-        .sort{
-            padding-top: 10px;
-            padding-bottom: 10px;
-            margin-right: 5px;
-        }
-        
-
-        #footer{
-            background-color: #aaa;
-            height: 50px;
-            text-align: center;
-            line-height: 50px;
-            color : #fff;
-            margin-top:30px;
-            bottom: 0;
-            width: 100%;
-        }
-    </style>
+    <link rel="stylesheet" href="css/style.css?20190618" >
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="ico/ico-144.png" sizes="144x144">
+    <link rel="apple-touch-icon" href="ico/ico-152.png" sizes="152x152">
+    <link rel="apple-touch-icon" href="ico/ico-180.png" sizes="180x180">
+    <link rel="apple-touch-icon" href="ico/ico-192.png" sizes="192x192">
+    <link rel="apple-touch-icon" href="ico/ico-256.png" sizes="256x256">
+    <link rel="apple-touch-icon" href="ico/ico-512.png" sizes="512x512">
 </head>
 <body>
+<script>
+    if('serviceWorker' in navigator) {
+       navigator.serviceWorker.register('sw.js').then(function(registration) {
+            console.log('ServiceWorker registration successful with scope: ', registration.scope);
+        }).catch(function(err) {
+            console.log('ServiceWorker registration failed: ', err);
+        });
+    }
+</script>
 <div class="jumbotron">
     <div class="container">
         <h1 >デレステ </br>フォトスタジオポーズ検索</h1>
@@ -111,19 +82,22 @@
                 <span>並び替えリセット</span>
             </button>
         </div>
-    </div>
-    <div class="col-md-12 col-12">
-        <ul id="pose-area" class="list-inline list">
-            <li class="list-inline-item" v-for="pose in items">
-                <a v-bind:href="pose.url" data-lightbox="pose-view" v-bind:data-title="pose.name">
-                    <img v-bind:src="pose.url">
-                    <p class="id" style="display:none;">{{ pose.id }}</p>
-                    <p class="name" style="display:none;">{{ pose.name }}</p>
-                    <p class="name_ja" style="display:none;">{{ pose.name_ja }}</p>
-                    <p class="type" style="display:none;">{{ pose.type }}</p>
-                </a>
-            </li>
-        </ul>
+    </div>   
+    <div id="pose-area" class="col-md-12 col-12">
+        <div v-show="loading" class="loader">Now loading...</div>
+        <div v-show="!loading">
+            <ul  class="list-inline list">
+                <li class="list-inline-item" v-for="pose in items">
+                    <a v-bind:href="pose.url" data-lightbox="pose-view" v-bind:data-title="pose.name">
+                        <img v-bind:src="pose.url">
+                        <p class="id" style="display:none;">{{ pose.id }}</p>
+                        <p class="name" style="display:none;">{{ pose.name }}</p>
+                        <p class="name_ja" style="display:none;">{{ pose.name_ja }}</p>
+                        <p class="type" style="display:none;">{{ pose.type }}</p>
+                    </a>
+                </li>
+            </ul>
+        </div>
     </div>
 </div>
 </div>
@@ -136,13 +110,16 @@
 new Vue({
     el:"#pose-area",
     data:{
-        items:[]
+        items:[],
+        loading:true
     },
     created(){
         let self = this;
         axios.get("https://script.google.com/macros/s/AKfycbyUYxGXh4Pu_6RiIAY1gjCBFB3NOTGJzR64NeSVqY6FQbINXoxJ/exec")
-        .then(res => {self.items = res.data})
-        .then(() => {
+        .then(res => {
+            self.items = res.data;
+            self.loading = false;
+        }).then(() => {
             const options = {
                 valueNames:["id","name","name_ja","type"]
             }
