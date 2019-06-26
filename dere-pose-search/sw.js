@@ -1,6 +1,6 @@
 // キャッシュ名とキャッシュファイルの指定
 // 更新があればこの名前を変更する
-var CACHE_NAME = 'dere-pose-cache::v2';
+var CACHE_NAME = 'dere-pose-cache::v3';
 var urlsToCache = [
     'search.html'
 ];
