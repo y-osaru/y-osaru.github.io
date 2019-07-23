@@ -9,6 +9,7 @@ $(function(){
     $("#goalPoint").val(lastParams.goalPoint);
     $("input[name='normalRate']").val([String(lastParams.normalRate)]);
     $("input[name='eventRate']").val([String(lastParams.eventRate)]);
+    $("input[name='playMode']").val([String(lastParams.playMode)]);
   }else{
     expireUpdateFlg = true;
   }
@@ -31,7 +32,8 @@ $(function(){
     !$.isNumeric($("#goalPoint").val()) ||
     !$.isNumeric($("#nowItem").val()) ||
     !$.isNumeric($("input[name='normalRate']:checked").val()) ||
-    !$.isNumeric($("input[name='eventRate']:checked").val())){
+    !$.isNumeric($("input[name='eventRate']:checked").val()) ||
+    !$.isNumeric($("input[name='playMode']:checked").val()) ){
       //radioがnumberじゃなくなる事は無いはずだが、むりやり消した場合/Edgeのラジオボタン消失バグの対策。
       alert("入力内容のいずれかが不正です。全て半角数字で入力して下さい。")
       return false;
@@ -47,10 +49,15 @@ $(function(){
   let totalPoint;
   let totalItem;
   let restItem;
-  function calc(days,daysPast,nowPoint,goalPoint,nowItem,normalRate,eventRate){
-    const pointNormal = 53;
+  function calc(days,daysPast,nowPoint,goalPoint,nowItem,normalRate,eventRate,playMode){
     const login = 300;
-    let itemNormal = 53 * normalRate;
+    let pointNormal = 53;
+    //GRANDの時は値を変える
+    if(playMode == 2){
+        pointNormal = 84;
+    }
+    
+    let itemNormal = pointNormal * normalRate;
     let itemEvent = 150 * eventRate;
     let pointEvent = 320 * eventRate;
     countNormal = Math.floor((itemEvent * (goalPoint - nowPoint) - pointEvent * ( login * (days - daysPast) + nowItem))
@@ -125,9 +132,10 @@ $(function(){
       let nowItem = Number($("#nowItem").val());
       let normalRate = Number($("input[name='normalRate']:checked").val())
       let eventRate = Number($("input[name='eventRate']:checked").val())
-
+      let playMode = Number($("input[name='playMode']:checked").val())
+      
       //計算
-      calc(days,daysPast,nowPoint,goalPoint,nowItem,normalRate,eventRate);
+      calc(days,daysPast,nowPoint,goalPoint,nowItem,normalRate,eventRate,playMode);
 
       //表示部分にセット
       $("#countNormal").text(countNormal);
@@ -150,7 +158,8 @@ $(function(){
           'daysPast' : daysPast,
           'goalPoint' : goalPoint,
           'normalRate' : normalRate,
-          'eventRate' : eventRate
+          'eventRate' : eventRate,
+          'playMode'  : playMode
         };
       }else{
         newParams = {
@@ -159,7 +168,8 @@ $(function(){
           'daysPast' : daysPast,
           'goalPoint' : goalPoint,
           'normalRate' : normalRate,
-          'eventRate' : eventRate
+          'eventRate' : eventRate,
+          'playMode'  : playMode
         };
       }
       localStorage.setItem("last_params", JSON.stringify(newParams));

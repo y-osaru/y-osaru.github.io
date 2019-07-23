@@ -1,5 +1,5 @@
 // キャッシュ名とキャッシュファイルの指定
-var CACHE_NAME = 'pwa-caches';
+var CACHE_NAME = 'pwa-caches::v2';
 var urlsToCache = [
     'https://y-osaru.github.io/atapon/atapon_calc.html',
     'https://y-osaru.github.io/atapon/atapon.js'
@@ -26,3 +26,16 @@ self.addEventListener('fetch', function(event) {
             })
     );
 });
+
+// 要らないキャッシュの削除
+self.addEventListener('activate',function(event){
+    event.waitUntil(
+        caches.keys().then(keyList => {
+            return Promise.all(keyList.map(key => {
+                if(CACHE_NAME.indexOf(key) === -1){
+                    return caches.delete(key);
+                }
+            }));
+        })
+    );
+})

@@ -14,7 +14,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-  <script src="atapon.js?20190109-2"></script>
+  <script src="atapon.js?20190109-3"></script>
   <title>アタポン計算機</title>
 </head>
 <body style="padding-top:4.0rem;">
@@ -38,7 +38,7 @@
   <div class="container">
     <div style="margin-top:10px;">
       <form aria-describedby="formHelp">
-        <small id="formHelp" class="form-text text-muted">※計算はスタミナ19(Master)/スコアSを前提としています。</small>
+        <small id="formHelp" class="form-text text-muted">※計算は、WIDEではスタミナ19(Master)/スコアS、GRANDではスタミナ30(FORTE)/スコアSを前提としています。</small>
         <div class="form-row">
           <div class="col-6">
             <label for="days">イベント日数</label>
@@ -63,8 +63,19 @@
             <label for="goalPoint">目標ポイント数</label>
             <input type="text" pattern="\d*" inputmode="numeric" class="form-control" id="goalPoint" placeholder="目標とするポイント数">
         </div>
+        <div class="form-group">
+            <label for="eventRate">ライブモード：</label>
+            <div class="form-check form-check-inline" style="margin-right:4px;">
+              <input class="form-check-input" type="radio" name="playMode" id="playMode1" value="1" checked>
+              <label class="form-check-label" for="playMode1">WIDE</label>
+            </div>
+            <div class="form-check form-check-inline" style="margin-right:4px;">
+              <input class="form-check-input" type="radio" name="playMode" id="playMode2" value="2">
+              <label class="form-check-label" for="playMode2">GRAND</label>
+            </div>
+        </div>
         <div class="form-row">
-          <div class="col-xs-12 col-sm-6">
+          <div class="col-xs-12 col-sm-4">
             <label for="normalRate">通常楽曲倍率：</label>
             <div class="form-check form-check-inline" style="margin-right:4px;">
               <input class="form-check-input" type="radio" name="normalRate" id="normalRate1" value="1" checked>
@@ -75,7 +86,7 @@
               <label class="form-check-label" for="normalRate2">2倍</label>
             </div>
           </div>
-          <div class="col-xs-12 com-sm-6">
+          <div class="col-xs-12 col-sm-4">
             <label for="eventRate">イベント楽曲倍率：</label>
             <div class="form-check form-check-inline" style="margin-right:4px;">
               <input class="form-check-input" type="radio" name="eventRate" id="eventRate1" value="1" checked>
