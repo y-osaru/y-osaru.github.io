@@ -4,13 +4,13 @@
     "icons": [{
         "src": "ico/ico-144.png",
         "sizes": "144x144",
-        "type": "image/png"
+        "type": "image/png",
+        "purpose":"maskable"
       },
       {
         "src": "ico/ico-144.png",
         "sizes": "144x144",
-        "type": "image/png",
-        "purpose":"maskable"
+        "type": "image/png"
       }, {
         "src": "ico/ico-152.png",
         "sizes": "152x152",
