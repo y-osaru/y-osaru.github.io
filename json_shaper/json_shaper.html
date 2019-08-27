@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>json整形ツール</title>
+<meta description="json整形ツール">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-light bg-light">
+  <span class="navbar-brand mb-0 h1">json整形ツール</span>
+</nav>
+<div class="container">
+	<form>
+		<div class="form-group">
+			<textarea aria-describedby="jsonFormHelp" rows="10" cols="60" class="form-control" id="json" placeholder="整形前json文字列"></textarea>
+		</div>
+	</form>
+	<div style="text-align:center">
+	<button type="submit" class="btn btn-primary" id="send">変換</button>
+	</div>
+	<div style="margin-top:20px">
+		<textarea rows="10" cols="60" id="result" class="form-control" placeholder="整形後のjson"></textarea>
+	</div>
+</div>
+<script>
+$(function(){
+	$("#send").click(function(){
+		var url = $("#url").val();
+		var json = $("#json").val();
+		//改行、タブ削除
+		json = json.replace(/\r|\n|\r\n/g,"").replace(/\t/g,"");
+		$("#result").val(JSON.stringify(JSON.parse(json),null, "\t"));
+	});
+	
+	//TODO:整形後のオブジェクトを表示し、プロパティ等を表示できる機能
+})
+</script>
+</body>
+</html>

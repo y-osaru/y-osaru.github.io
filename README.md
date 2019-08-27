@@ -28,3 +28,7 @@ phina.js製
 - 画像拡大  
 - PWA対応  
 などやってる  
+
+## json整形ツール(y-osaru.github.io/json_shaper)  
+[json整形ツール](http://y-osaru.github.io/json_shaper/json_shaper.html)  
+1行になっているjson文字列をじゃっと整形できるツール。  
