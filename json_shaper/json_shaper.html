@@ -14,6 +14,7 @@
   <span class="navbar-brand mb-0 h1">json整形ツール</span>
 </nav>
 <div class="container">
+	json整形
 	<form>
 		<div class="form-group">
 			<textarea aria-describedby="jsonFormHelp" rows="10" cols="60" class="form-control" id="json" placeholder="整形前json文字列"></textarea>
@@ -25,6 +26,21 @@
 	<div style="margin-top:20px">
 		<textarea rows="10" cols="60" id="result" class="form-control" placeholder="整形後のjson"></textarea>
 	</div>
+	<!--jsonの中身を簡易表示出来る機能-->
+	<div id="prop-view" style="margin-top:20px;visibility: hidden;">
+		json簡易ビュー
+		<table class="table">
+			<thead>
+				<tr>
+					<th scope="col">プロパティ名</th>
+					<th scope="col">値</th>
+					<th scope="col">型</th>
+				</tr>
+			</thead>
+			<tbody id="prop-view-table-row">
+			</tbody>
+		</table>
+	</div>
 </div>
 <script>
 $(function(){
@@ -33,7 +49,44 @@ $(function(){
 		var json = $("#json").val();
 		//改行、タブ削除
 		json = json.replace(/\r|\n|\r\n/g,"").replace(/\t/g,"");
-		$("#result").val(JSON.stringify(JSON.parse(json),null, "\t"));
+		$("#prop-view-table-row").empty();
+		try{
+			var jsonObj = JSON.parse(json);
+			//整形結果表示
+			$("#result").val(JSON.stringify(jsonObj,null, "\t"));
+
+			//jsonの中身を簡易表示
+			var objProps = Object.keys(jsonObj);
+			if(objProps.length > 0){
+				$("#prop-view").css("visibility","visible");
+
+				for(var i = 0; i < objProps.length; i++){
+					var propKey = objProps[i];
+					var propValue = jsonObj[propKey];
+					var propType = typeof propValue;
+
+					$("#prop-view-table-row").append(
+						$("<tr>")
+							.append(
+								$("<td>").text(propKey))
+							.append(() => {
+								if(propValue instanceof Object){
+									return $("<td>").text(JSON.stringify(propValue))
+								}else{
+									return $("<td>").text(propValue)
+								}
+							})
+							.append(
+								$("<td>").text(propType))
+					);
+				}
+			}else{
+				$("#prop-view").css("visibility","hidden");
+			}
+
+		}catch(e){
+			$("#result").val("ERROR!!: " + e.message);
+		}
 	});
 	
 	//TODO:整形後のオブジェクトを表示し、プロパティ等を表示できる機能
