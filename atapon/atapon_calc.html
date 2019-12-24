@@ -14,7 +14,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-  <script src="atapon.js?20190109-3"></script>
+  <script src="atapon.js?20191224"></script>
   <title>アタポン計算機</title>
 </head>
 <body style="padding-top:4.0rem;">
@@ -131,6 +131,19 @@
           </tr>
           <tr>
             <td colspan="2">余りアイテム数：<span id="restItem"></span></td>
+          </tr>
+          <tr>
+            <td colspan="2">必要スタミナ量：<span id="needStamina"></span></td>
+          </tr>
+          <tr>
+            <td colspan="2">自然回復スタミナ量：<span id="recoveryStamina"></span></td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              不足スタミナ量：<span id="lackStamina"></span><br>
+              <small class="text-muted">※一の位で切り上げています</small>
+            </td>
+
           </tr>
         </tbody>
       </table>      

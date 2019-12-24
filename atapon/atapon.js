@@ -49,12 +49,17 @@ $(function(){
   let totalPoint;
   let totalItem;
   let restItem;
+  let needStamina;
+  let recoveryStamina;
+  let lackStamina;
   function calc(days,daysPast,nowPoint,goalPoint,nowItem,normalRate,eventRate,playMode){
     const login = 300;
+    let useStamina = 19;
     let pointNormal = 53;
     //GRANDの時は値を変える
     if(playMode == 2){
         pointNormal = 84;
+        useStamina = 30;
     }
     
     let itemNormal = pointNormal * normalRate;
@@ -106,6 +111,18 @@ $(function(){
         }
       }
     }
+
+    //目標までに必要なスタミナ
+    needStamina = useStamina * normalRate * countNormal;
+    if(daysPast == 0){
+      //イベント日数が1日なんてありえんから気にせんで良い
+      recoveryStamina = 12 * 24 * (days - 2) + 29 * 12 + 11;
+    }else{
+      //残り日数-1が0以下なら0にする
+      recoveryStamina = 12 * Math.max(days - daysPast - 1,0) * 24 + 20 * 12 + 11;
+    }
+    //1の位が0になるよう切り上げ実施、不足なしなら0
+    lackStamina = Math.max(Math.ceil((needStamina - recoveryStamina) / 10 ) * 10,0);
     
     //回数が確定した為、総アイテム数を計算
     totalItem = itemNormal * countNormal + login * (days - daysPast) + nowItem;
@@ -145,6 +162,9 @@ $(function(){
       $("#totalPoint").text(totalPoint);
       $("#totalItem").text(totalItem);
       $("#restItem").text(restItem);
+      $("#needStamina").text(needStamina);
+      $("#recoveryStamina").text(recoveryStamina);
+      $("#lackStamina").text(lackStamina);
       
       //ローカルストレージに保存
       const expireTerm = 11;
