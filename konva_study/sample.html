@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://unpkg.com/konva@4.0.0/konva.min.js"></script>
+    <title>ダイマ画像を作ろう-テスト-</title>
+    <style>
+        #container{
+            background-color: #f0f0f0;
+        }
+        #text-controll,#img-controll{
+            border: 1px solid #000000
+        }
+    </style>
+</head>
+<body>
+<div>
+    <div class="controllers">
+        <span id="text-controll">文字追加</span>
+        <span id="img-controll">画像追加(今は固定画像)</span>
+    </div>
+    <hr>
+    <div id="container"></div>
+</div>
+<script>
+    //Konvaの初期化処理
+    let width = window.innerWidth;
+    let height = 300;
+
+    function update(activeAnchor) {
+        var group = activeAnchor.getParent();
+
+        var topLeft = group.find('.topLeft')[0];
+        var topRight = group.find('.topRight')[0];
+        var bottomRight = group.find('.bottomRight')[0];
+        var bottomLeft = group.find('.bottomLeft')[0];
+        var image = group.find('Image')[0];
+
+        var anchorX = activeAnchor.getX();
+        var anchorY = activeAnchor.getY();
+
+        // update anchor positions
+        switch (activeAnchor.getName()) {
+        case 'topLeft':
+            topRight.y(anchorY);
+            bottomLeft.x(anchorX);
+            break;
+        case 'topRight':
+            topLeft.y(anchorY);
+            bottomRight.x(anchorX);
+            break;
+        case 'bottomRight':
+            bottomLeft.y(anchorY);
+            topRight.x(anchorX);
+            break;
+        case 'bottomLeft':
+            bottomRight.y(anchorY);
+            topLeft.x(anchorX);
+            break;
+        }
+
+        image.position(topLeft.position());
+
+        var width = topRight.getX() - topLeft.getX();
+        var height = bottomLeft.getY() - topLeft.getY();
+        if (width && height) {
+        image.width(width);
+        image.height(height);
+        }
+    }
+
+    function addAnchor(group, x, y, name) {
+        var stage = group.getStage();
+        var layer = group.getLayer();
+
+        var anchor = new Konva.Circle({
+            x: x,
+            y: y,
+            stroke: '#666',
+            fill: '#ddd',
+            strokeWidth: 2,
+            radius: 8,
+            name: name,
+            draggable: true,
+            dragOnTop: false
+        });
+
+        anchor.on('dragmove', function() {
+            update(this);
+            layer.draw();
+        });
+        anchor.on('mousedown touchstart', function() {
+            group.draggable(false);
+            this.moveToTop();
+        });
+        anchor.on('dragend', function() {
+            group.draggable(true);
+            layer.draw();
+        });
+        // add hover styling
+        anchor.on('mouseover', function() {
+            var layer = this.getLayer();
+            document.body.style.cursor = 'pointer';
+            this.strokeWidth(4);
+            layer.draw();
+        });
+        anchor.on('mouseout', function() {
+            var layer = this.getLayer();
+            document.body.style.cursor = 'default';
+            this.strokeWidth(2);
+            layer.draw();
+        });
+
+        group.add(anchor);
+    }
+
+    var stage = new Konva.Stage({
+        container:"container",
+        width:width,
+        height:height
+    });
+
+    let layer = new Konva.Layer();
+    stage.add(layer);
+
+    //文字追加
+    let textElm = document.getElementById("text-controll");
+    textElm.onclick = function(){
+        //描画するテキスト
+        let textNode = new Konva.Text({
+            text:"Double click for Change",
+            x:50,//ここをCanvasの中心とか出来ないかな
+            y:80,
+            fontSize:20,
+            draggable:true,
+            width:200
+        });
+        layer.add(textNode);
+
+        //移動
+        let textTrans = new Konva.Transformer({
+            node:textNode,
+            enabledAnchors:["middle-left","middle-right"],
+            boundBoxFinc:function(oldBox,newBox){
+                newBox.width = Math.max(30,newBox.width);
+                return newBox;
+            }
+        });
+
+        textNode.on("transform",function(){
+            textNode.setAttrs({
+                width:textNode.width() * textNode.scaleX(),
+                scaleX:1
+            });
+        });
+
+        layer.add(textTrans);
+        layer.draw();
+
+        //テキスト変更(長い……)
+        textNode.on('dblclick', () => {
+            //一旦非表示に
+            textNode.hide();
+            //textTrans.hide();
+            layer.draw();
+
+            //今のノードの位置を計算
+            let textPosition = textNode.absolutePosition();
+            let stageBox = stage.container().getBoundingClientRect();
+            let areaPosition = {
+                x: stageBox.left + textPosition.x,
+                y: stageBox.top + textPosition.y
+            };
+
+            //計算した位置にtextareaのdomを生成
+            let textarea = document.createElement('textarea');
+            document.body.appendChild(textarea);
+            textarea.value = textNode.text();
+            textarea.style.position = 'absolute';
+            textarea.style.top = areaPosition.y + 'px';
+            textarea.style.left = areaPosition.x + 'px';
+            textarea.style.width = textNode.width() - textNode.padding() * 2 + 'px';
+            textarea.style.height =
+            textNode.height() - textNode.padding() * 2 + 5 + 'px';
+            textarea.style.fontSize = textNode.fontSize() + 'px';
+            textarea.style.border = 'none';
+            textarea.style.padding = '0px';
+            textarea.style.margin = '0px';
+            textarea.style.overflow = 'hidden';
+            textarea.style.background = 'none';
+            textarea.style.outline = 'none';
+            textarea.style.resize = 'none';
+            textarea.style.lineHeight = textNode.lineHeight();
+            textarea.style.fontFamily = textNode.fontFamily();
+            textarea.style.transformOrigin = 'left top';
+            textarea.style.textAlign = textNode.align();
+            textarea.style.color = textNode.fill();
+            rotation = textNode.rotation();
+            var transform = '';
+            if (rotation) {
+            transform += 'rotateZ(' + rotation + 'deg)';
+            }
+            textarea.style.transform = transform;
+            textarea.style.height = 'auto';
+            textarea.style.height = textarea.scrollHeight + 3 + 'px';
+            
+            textarea.focus();
+
+            function removeTextarea() {
+                textarea.parentNode.removeChild(textarea);
+                window.removeEventListener('click', handleOutsideClick);
+                textNode.show();
+                //textTrans.show();
+                textTrans.forceUpdate();
+                layer.draw();
+            }
+
+            function setTextareaWidth(newWidth) {
+                if (!newWidth) {
+                    newWidth = textNode.placeholder.length * textNode.fontSize();
+                }
+                var isSafari = /^((?!chrome|android).)*safari/i.test(
+                    navigator.userAgent
+                );
+                var isFirefox =
+                    navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+                if (isSafari || isFirefox) {
+                    newWidth = Math.ceil(newWidth);
+                }
+
+                var isEdge =
+                    document.documentMode || /Edge/.test(navigator.userAgent);
+                if (isEdge) {
+                    newWidth += 1;
+                }
+                textarea.style.width = newWidth + 'px';
+            }
+
+            textarea.addEventListener('keydown', function(e) {
+                // hide on enter
+                // but don't hide on shift + enter
+                if (e.keyCode === 13 && !e.shiftKey) {
+                    textNode.text(textarea.value);
+                    removeTextarea();
+                }
+                // on esc do not set value back to node
+                if (e.keyCode === 27) {
+                    removeTextarea();
+                }
+            });
+
+            textarea.addEventListener('keydown', function(e) {
+            scale = textNode.getAbsoluteScale().x;
+            setTextareaWidth(textNode.width() * scale);
+            textarea.style.height = 'auto';
+            textarea.style.height =
+                textarea.scrollHeight + textNode.fontSize() + 'px';
+            });
+
+            function handleOutsideClick(e) {
+                if (e.target !== textarea) {
+                    textNode.text(textarea.value);
+                    removeTextarea();
+                }
+            }
+            
+            setTimeout(() => {
+                window.addEventListener('click', handleOutsideClick);
+            });
+        });
+    }
+
+    let imgElm = document.getElementById("img-controll");
+    imgElm.onclick = function(){
+        
+        let image = new Konva.Image({
+            width: 160,
+            height: 200
+        });
+
+        let imageGroup = new Konva.Group({
+            x: 20,
+            y: 80,
+            draggable: true
+        });
+        layer.add(imageGroup);
+        imageGroup.add(image);
+        addAnchor(imageGroup, 0, 0, 'topLeft');
+        addAnchor(imageGroup, 160, 0, 'topRight');
+        addAnchor(imageGroup, 160, 200, 'bottomRight');
+        addAnchor(imageGroup, 0, 200, 'bottomLeft');
+
+        //画像読み込み
+        let imgUrl = "https://imas.gamedbs.jp/cg/image_sp/card/l/9115963613f19ebcacb3378f581f8246.jpg";
+        let imageObj = new Image();
+        imageObj.onload = function() {
+            image.image(imageObj);
+            layer.draw();
+        };
+        imageObj.src = imgUrl;
+
+        
+    }
+
+</script>
+</body>
+</html>
