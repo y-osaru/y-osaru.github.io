@@ -21,11 +21,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.8/vue.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
-    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="js/hammer.min.js"></script>
     <script src="js/jquery.hammer.js"></script>
-    <link rel="stylesheet" href="css/style.css?20190618" >
+    <link rel="stylesheet" href="css/style.css?20200205" >
     <link rel="manifest" href="manifest.json?20190903-1">
     <link rel="apple-touch-icon" href="ico/ico-144.png" sizes="144x144">
     <link rel="apple-touch-icon" href="ico/ico-152.png" sizes="152x152">
@@ -61,27 +60,43 @@
         </div>
         <div class="form-group form-inline">
             <button class="type-btn btn page-link text-dark d-inline-block" value="All">
-                <img src="https://storage.googleapis.com/mobampmaster_stamp_contents/all_logo.png" width="25" height="25">
+                <img src="images/all_logo.png" width="25" height="25">
                 <span>全て</span>
             </button>
             <button class="type-btn btn page-link text-dark d-inline-block" value="Cu">
-                <img src="https://storage.googleapis.com/mobampmaster_stamp_contents/CfhyOYdUYAERQxa.png" width="25" height="25">
+                <img src="images/cu_logo.png" width="25" height="25">
                 <span>キュート</span>
             </button>
             <button class="type-btn btn page-link text-dark d-inline-block" value="Co">
-                <img src="https://storage.googleapis.com/mobampmaster_stamp_contents/CfhyOYcUEAEeih7.png" width="25" height="25">
+                <img src="images/co_logo.png" width="25" height="25">
                 <span>クール</span>
             </button>
             <button class="type-btn btn page-link text-dark d-inline-block" value="Pa">
-                <img src="https://storage.googleapis.com/mobampmaster_stamp_contents/CfhyOZYUEAIPzqo.png" width="25" height="25">
+                <img src="images/pa_logo.png" width="25" height="25">
                 <span>パッション</span>
             </button>
             <button class="sort btn page-link text-dark d-inline-block" data-sort="name_ja">
-                <i class="fas fa-arrows-alt-v"></i>
+                <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="arrows-alt-v" class="svg-inline--fa fa-arrows-alt-v fa-w-8" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512">
+                    <!--
+                        This SVG is used in combination with some of the following libraries:
+                        Font Awesome Free by @fontawesome - http://fontawesome.com
+                        License - http://fontawesome.com/license (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
+                    -->
+                    <path fill="currentColor" d="M214.059 377.941H168V134.059h46.059c21.382 0 32.09-25.851 16.971-40.971L144.971 7.029c-9.373-9.373-24.568-9.373-33.941 0L24.971 93.088c-15.119 15.119-4.411 40.971 16.971 40.971H88v243.882H41.941c-21.382 0-32.09 25.851-16.971 40.971l86.059 86.059c9.373 9.373 24.568 9.373 33.941 0l86.059-86.059c15.12-15.119 4.412-40.971-16.97-40.971z">
+                    </path>
+                </svg>
                 <span>名前で並び替え</span>
             </button>
             <button class="sort btn page-link text-dark d-inline-block" data-sort="id">
-                <i class="fas fa-undo"></i>
+                <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="undo" class="svg-inline--fa fa-undo fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                    <!--
+                        This SVG is used in combination with some of the following libraries:
+                        Font Awesome Free by @fontawesome - http://fontawesome.com
+                        License - http://fontawesome.com/license (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
+                    -->
+                    <path fill="currentColor" d="M212.333 224.333H12c-6.627 0-12-5.373-12-12V12C0 5.373 5.373 0 12 0h48c6.627 0 12 5.373 12 12v78.112C117.773 39.279 184.26 7.47 258.175 8.007c136.906.994 246.448 111.623 246.157 248.532C504.041 393.258 393.12 504 256.333 504c-64.089 0-122.496-24.313-166.51-64.215-5.099-4.622-5.334-12.554-.467-17.42l33.967-33.967c4.474-4.474 11.662-4.717 16.401-.525C170.76 415.336 211.58 432 256.333 432c97.268 0 176-78.716 176-176 0-97.267-78.716-176-176-176-58.496 0-110.28 28.476-142.274 72.333h98.274c6.627 0 12 5.373 12 12v48c0 6.627-5.373 12-12 12z">
+                    </path>
+                </svg>
                 <span>並び替えリセット</span>
             </button>
         </div>

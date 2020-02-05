@@ -84,3 +84,15 @@
     bottom: 0;
     width: 100%;
 }
+
+svg.svg-inline--fa.fa-undo.fa-w-16{
+  width: 16px;
+  height: 16px;
+  margin-top:-3px;
+}
+
+svg.svg-inline--fa.fa-arrows-alt-v.fa-w-8{
+  width: 8px;
+  height: 16px;
+  margin-top:-3px;
+}
