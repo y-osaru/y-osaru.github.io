@@ -172,6 +172,9 @@ new Vue({
                     }
                 }
             });
+            lightbox.option({
+                'disableScrolling': true
+            })
         });
     }
 })
@@ -179,5 +182,10 @@ new Vue({
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" ></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" ></script>
 <script src="lightbox/lightbox.min.js"></script>
+<script>
+    lightbox.option({
+        'disableScrolling': true
+    });
+</script>
 </body>
 </html>
