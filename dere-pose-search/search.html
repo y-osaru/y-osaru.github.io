@@ -21,10 +21,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.8/vue.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
+    <script src="https://unpkg.com/vue-cookies@1.7.3/vue-cookies.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="js/hammer.min.js"></script>
     <script src="js/jquery.hammer.js"></script>
-    <link rel="stylesheet" href="css/style.css?20200205" >
+    <link rel="stylesheet" href="css/style.css?20200827" >
     <link rel="manifest" href="manifest.json?20190903-1">
     <link rel="apple-touch-icon" href="ico/ico-144.png" sizes="144x144">
     <link rel="apple-touch-icon" href="ico/ico-152.png" sizes="152x152">
@@ -75,6 +76,10 @@
                 <img src="images/pa_logo.png" width="25" height="25">
                 <span>パッション</span>
             </button>
+            <button class="favorite-btn btn page-link text-dark d-inline-block">
+                <img src="images/fav_logo.png" width="25" height="25">
+                <span>お気に入り</span>
+            </button>
             <button class="sort btn page-link text-dark d-inline-block" data-sort="name_ja">
                 <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="arrows-alt-v" class="svg-inline--fa fa-arrows-alt-v fa-w-8" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512">
                     <!--
@@ -106,13 +111,16 @@
         <div v-show="!loading">
             <ul  class="list-inline list">
                 <li class="list-inline-item" v-for="pose in items">
-                    <a v-bind:href="pose.url" data-lightbox="pose-view" v-bind:data-title="pose.name">
-                        <img v-bind:src="pose.url">
-                        <p class="id" style="display:none;">{{ pose.id }}</p>
-                        <p class="name" style="display:none;">{{ pose.name }}</p>
-                        <p class="name_ja" style="display:none;">{{ pose.name_ja }}</p>
-                        <p class="type" style="display:none;">{{ pose.type }}</p>
-                    </a>
+                    <div class="pose">
+                        <input type="checkbox" v-bind:id="'pose_' + pose.id" v-bind:value="pose.id" v-model="favoritePoses">
+                        <a v-bind:href="pose.url" data-lightbox="pose-view" v-bind:data-title="pose.name">
+                            <img v-bind:src="pose.url">
+                            <p class="id" style="display:none;">{{ pose.id }}</p>
+                            <p class="name" style="display:none;">{{ pose.name }}</p>
+                            <p class="name_ja" style="display:none;">{{ pose.name_ja }}</p>
+                            <p class="type" style="display:none;">{{ pose.type }}</p>
+                        </a>
+                    </div>
                 </li>
             </ul>
         </div>
@@ -130,6 +138,7 @@ new Vue({
     data:{
         items:[],
         update: "",
+        favoritePoses:[],
         loading:true
     },
     created(){
@@ -156,6 +165,29 @@ new Vue({
                 })
             });
             
+            $(".favorite-btn").click(function(){
+                poseList.filter(function(item){
+                    if(self.favoritePoses.includes(Number(item.values().id))){
+                        return true;
+                    }else{
+                        return false;
+                    }
+                })
+            });
+
+            const favPoseInCookie = this.$cookies.get("favorite_poses");
+            if(favPoseInCookie !== null){
+                const favPoseInCookieArray = favPoseInCookie.split(",");
+                for(let i = 0; i < favPoseInCookieArray.length; i++){
+                    self.favoritePoses.push(Number(favPoseInCookieArray[i]));
+                }
+            }
+
+            for(let i = 0; i < self.favoritePoses.length; i++){
+                const poseId = "#pose_" + self.favoritePoses[i];
+                $(poseId).prop("checked",true);
+            }
+
             $("#update_on").text(self.update);
 
             $('#lightbox').hammer().on("swipe", function (e) {
@@ -176,6 +208,11 @@ new Vue({
                 'disableScrolling': true
             })
         });
+    },
+    watch:{
+        favoritePoses:function(){
+            this.$cookies.set("favorite_poses",this.favoritePoses.join(","),"1y")
+        }
     }
 })
 </script>
