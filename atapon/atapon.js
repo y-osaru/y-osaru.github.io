@@ -55,14 +55,14 @@ $(function(){
   function calc(days,daysPast,nowPoint,goalPoint,nowItem,normalRate,eventRate,playMode){
     const login = 300;
     let useStamina = 19;
-    let pointNormal = 53;
+    let pointNormal = 53 * normalRate;
     //GRANDの時は値を変える
     if(playMode == 2){
-        pointNormal = 84;
+        pointNormal = 84 * normalRate;
         useStamina = 30;
     }
     
-    let itemNormal = pointNormal * normalRate;
+    let itemNormal = pointNormal;
     let itemEvent = 150 * eventRate;
     let pointEvent = 320 * eventRate;
     countNormal = Math.floor((itemEvent * (goalPoint - nowPoint) - pointEvent * ( login * (days - daysPast) + nowItem))
