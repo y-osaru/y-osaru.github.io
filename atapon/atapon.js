@@ -46,6 +46,7 @@ $(function(){
   let countEvent1;
   let countEvent2;
   let countEvent4;
+  let countEvent8;
   let totalPoint;
   let totalItem;
   let restItem;
@@ -80,6 +81,7 @@ $(function(){
     countEvent1 = 0;
     countEvent2 = 0;
     countEvent4 = 0;
+    countEvent8 = 0;
     if(goalPoint > totalPoint){
       let endFlag = false;
       //マジックナンバー半端ないが、デレステやってれば一発で分かる閾値であり、変わる事は無いのでOKにする。
@@ -104,6 +106,11 @@ $(function(){
           countEvent4++;
           restItem -= 600;
           totalPoint += 1280;
+        }else if(restItem >= 1200){
+          //8倍プレイ
+          countEvent8++;
+          restItem -= 1200;
+          totalPoint += 2560;
         }
 
         if(totalPoint >= goalPoint){
@@ -124,7 +131,7 @@ $(function(){
     //1の位が0になるよう切り上げ実施、不足なしなら0
     lackStamina = Math.max(Math.ceil((needStamina - recoveryStamina) / 10 ) * 10,0);
     
-    //回数が確定した為、総アイテム数を計算
+    //回数が確定した為、総アイテム数及びイベント楽曲回数を計算
     totalItem = itemNormal * countNormal + login * (days - daysPast) + nowItem;
     switch(eventRate){
       case 1:
@@ -135,6 +142,9 @@ $(function(){
         break;
       case 4:
         countEvent4 += countEvent;
+        break;
+      case 8:
+        countEvent8 += countEvent;
         break;
     }
   }
@@ -159,6 +169,7 @@ $(function(){
       $("#countEvent1").text(countEvent1);
       $("#countEvent2").text(countEvent2);
       $("#countEvent4").text(countEvent4);
+      $("#countEvent8").text(countEvent8);
       $("#totalPoint").text(totalPoint);
       $("#totalItem").text(totalItem);
       $("#restItem").text(restItem);

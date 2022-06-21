@@ -14,7 +14,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-  <script src="atapon.js?20210918"></script>
+  <script src="atapon.js?20220621"></script>
   <title>アタポン計算機</title>
 </head>
 <body style="padding-top:4.0rem;">
@@ -37,7 +37,7 @@
     <div style="margin-top:10px;">
       <form aria-describedby="formHelp">
         <small id="formHelp" class="form-text text-muted">
-          ※2021/09/18update：2021/09の仕様変更に対応。<br>
+          ※2022/06/21update：2022/06の仕様変更(8倍)に対応。<br>
           ※計算は、WIDEではスタミナ19(Master)/スコアS、GRANDではスタミナ30(FORTE)/スコアSを前提としています。</small>
         <div class="form-row">
           <div class="col-6">
@@ -100,6 +100,10 @@
               <input class="form-check-input" type="radio" name="eventRate" id="eventRate4" value="4">
               <label class="form-check-label" for="eventRate4">4倍</label>
             </div>
+            <div class="form-check form-check-inline" style="margin-right:4px;">
+              <input class="form-check-input" type="radio" name="eventRate" id="eventRate8" value="8">
+              <label class="form-check-label" for="eventRate"8>8倍</label>
+            </div>
           </div>
         </div>
       </form>
@@ -114,7 +118,7 @@
             <td colspan="2">通常楽曲プレイ回数：<span id="countNormal"></span></td>
           </tr>
           <tr>
-            <td rowspan="3" width="25%">イベント楽曲プレイ回数</td>
+            <td rowspan="4" width="25%">イベント楽曲プレイ回数</td>
             <td>等倍：<span id="countEvent1"></span></td>
           </tr>
           <tr>
@@ -122,6 +126,9 @@
           </tr>
           <tr>
             <td colspan="2">4倍：<span id="countEvent4"></span></td>
+          </tr>
+          <tr>
+            <td colspan="2">8倍：<span id="countEvent8"></span></td>
           </tr>
           <tr>
             <td colspan="2">総ポイント数：<span id="totalPoint"></span></td>
