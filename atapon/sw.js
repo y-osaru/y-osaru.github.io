@@ -1,5 +1,5 @@
 // キャッシュ名とキャッシュファイルの指定
-var CACHE_NAME = 'pwa-caches::v6';
+var CACHE_NAME = 'pwa-caches::v7';
 var urlsToCache = [
     'https://y-osaru.github.io/atapon/atapon_calc.html',
     'https://y-osaru.github.io/atapon/atapon.js'

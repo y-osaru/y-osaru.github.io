@@ -132,7 +132,7 @@ $(function(){
     lackStamina = Math.max(Math.ceil((needStamina - recoveryStamina) / 10 ) * 10,0);
     
     //回数が確定した為、総アイテム数及びイベント楽曲回数を計算
-    totalItem = itemNormal * countNormal + login * (days - daysPast) + nowItem + restItem;
+    totalItem = itemNormal * countNormal + login * (days - daysPast) + nowItem;
     switch(eventRate){
       case 1:
         countEvent1 += countEvent;
