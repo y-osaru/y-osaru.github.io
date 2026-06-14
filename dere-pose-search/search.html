@@ -149,7 +149,7 @@ new Vue({
     },
     created(){
         let self = this;
-        axios.get("https://script.google.com/macros/s/AKfycbyUYxGXh4Pu_6RiIAY1gjCBFB3NOTGJzR64NeSVqY6FQbINXoxJ/exec")
+        axios.get("https://script.google.com/macros/s/AKfycbzkRoDuqWpOZXMIIajyRa9audwOVbHNWtU1gFiMAHLKQdLIo0DnfdzSNvLobK0WJuaQTg/exec")
         .then(res => {
             self.items = res.data.poses;
             self.update = res.data.update;
